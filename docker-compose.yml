@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  test_kmf:
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: test_kmf
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app:rw,delegated
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2017-CU8-ubuntu
+    ports:
+      - "1433:1433"
